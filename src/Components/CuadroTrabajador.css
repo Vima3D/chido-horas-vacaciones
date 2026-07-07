@@ -1,0 +1,8 @@
+.cuadro-trabajador {
+  transition: background-color 0.3s ease;
+}
+
+/* Hover oscuro solo si NO está completado */
+.hover-dark:hover {
+  background-color: #6c757d !important; /* bg-secondary */
+}
