@@ -41,6 +41,8 @@ const HorasExtra = () => {
     modo,
     setModo,
 
+    mensaje,
+
     guardarReporte,
     eliminarReporte,
   } = useGestionRegistros("reportes_horas_extra", "horas");
@@ -92,6 +94,7 @@ const HorasExtra = () => {
         campo={campo}
         nombreCampo={nombreCampo}
         unidad={unidad}
+        mensaje={mensaje}
       />
 
       <PinModal

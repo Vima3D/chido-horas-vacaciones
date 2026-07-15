@@ -34,6 +34,8 @@ const Vacaciones = () => {
     modo,
     setModo,
 
+    mensaje,
+
     guardarReporte,
     eliminarReporte,
   } = useGestionRegistros("vacaciones", "dias");
@@ -109,6 +111,7 @@ const Vacaciones = () => {
         campo="dias"
         nombreCampo="Días"
         unidad="días"
+        mensaje={mensaje}
       />
 
       <PinModal

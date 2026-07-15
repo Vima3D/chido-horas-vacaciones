@@ -75,60 +75,49 @@ const GestionRegistrosModal = ({
                 <div className="mb-3">
                   <label className="form-label">{nombreCampo}</label>
 
-                  {campo === "horas" ? (
-                    <div className="d-grid gap-2">
-                      <div className="d-flex gap-2">
-                        <button
-                          className="btn btn-secondary flex-fill"
-                          onClick={() => setNuevoValor((v) => v - 1)}
-                        >
-                          -1 h
-                        </button>
-
-                        <button
-                          className="btn btn-secondary flex-fill"
-                          onClick={() => setNuevoValor((v) => v - 0.5)}
-                        >
-                          -0.5 h
-                        </button>
-                      </div>
-
-                      <div className="display-5 text-center fw-bold">
-                        {nuevoValor} h
-                      </div>
-
-                      <div className="d-flex gap-2">
-                        <button
-                          className="btn btn-success flex-fill"
-                          onClick={() => setNuevoValor((v) => v + 0.5)}
-                        >
-                          +0.5 h
-                        </button>
-
-                        <button
-                          className="btn btn-success flex-fill"
-                          onClick={() => setNuevoValor((v) => v + 1)}
-                        >
-                          +1 h
-                        </button>
-                      </div>
+                  <div className="d-grid gap-2">
+                    <div className="d-flex gap-2">
                       <button
-                        className="btn btn-outline-secondary w-100 mt-2"
-                        onClick={() => setNuevoValor(0)}
+                        className="btn btn-secondary flex-fill"
+                        onClick={() => setNuevoValor((v) => v - 1)}
                       >
-                        Reiniciar
+                        -1 h
+                      </button>
+
+                      <button
+                        className="btn btn-secondary flex-fill"
+                        onClick={() => setNuevoValor((v) => v - 0.5)}
+                      >
+                        -0.5 h
                       </button>
                     </div>
-                  ) : (
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={nuevoValor}
-                      min="1"
-                      step="1"
-                      onChange={(e) => setNuevoValor(Number(e.target.value))}
-                    />
-                  )}
+
+                    <div className="display-5 text-center fw-bold">
+                      {nuevoValor} h
+                    </div>
+
+                    <div className="d-flex gap-2">
+                      <button
+                        className="btn btn-success flex-fill"
+                        onClick={() => setNuevoValor((v) => v + 0.5)}
+                      >
+                        +0.5 h
+                      </button>
+
+                      <button
+                        className="btn btn-success flex-fill"
+                        onClick={() => setNuevoValor((v) => v + 1)}
+                      >
+                        +1 h
+                      </button>
+                    </div>
+                    <button
+                      className="btn btn-outline-secondary w-100 mt-2"
+                      onClick={() => setNuevoValor(0)}
+                    >
+                      Reiniciar
+                    </button>
+                  </div>
                 </div>
 
                 <div className="mb-3">

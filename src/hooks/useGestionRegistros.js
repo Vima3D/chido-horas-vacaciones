@@ -26,6 +26,8 @@ export default function useGestionRegistros(coleccionFirestore, campo) {
 
   const [modo, setModo] = useState("nuevo");
 
+  const [mensaje, setMensaje] = useState("");
+
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "trabajadores"), (snapshot) => {
       setTrabajadores(
@@ -67,7 +69,7 @@ export default function useGestionRegistros(coleccionFirestore, campo) {
       });
     }
 
-    setMostrarFormulario(false);
+    setMensaje(editando ? "Registro actualizado" : "Registro guardado");
     setEditando(false);
     setIdEditar(null);
     setModo("nuevo");
@@ -75,6 +77,10 @@ export default function useGestionRegistros(coleccionFirestore, campo) {
     setNuevoValor(0);
     setNuevaFecha(new Date());
     setNuevoNombre(trabajadores[0]?.nombre || "");
+
+    setTimeout(() => {
+      setMensaje("");
+    }, 2000);
   };
 
   const eliminarReporte = async (id) => {
@@ -108,5 +114,8 @@ export default function useGestionRegistros(coleccionFirestore, campo) {
 
     guardarReporte,
     eliminarReporte,
+
+    mensaje,
+    setMensaje,
   };
 }
