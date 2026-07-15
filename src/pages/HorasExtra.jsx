@@ -102,6 +102,11 @@ const HorasExtra = () => {
         cerrar={() => setMostrarPin(false)}
         onCorrecto={() => {
           setMostrarPin(false);
+
+          if (trabajadores.length > 0 && !nuevoNombre) {
+            setNuevoNombre(trabajadores[0].nombre);
+          }
+
           setMostrarFormulario(true);
         }}
       />
