@@ -1,14 +1,18 @@
 import { calcularVacaciones } from "../utils/vacaciones";
-import Logo from "../Components/Logo";
+import { locales } from "../config/locales";
 import CuadroTrabajador from "../Components/CuadroTrabajador";
 import { Link } from "react-router-dom";
 import GestionRegistrosModal from "../Components/GestionRegistrosModal";
 import useGestionRegistros from "../hooks/useGestionRegistros";
 import PinModal from "../Components/PinModal";
 import { useState } from "react";
+import Logo from "../Components/Logo";
+import BotonLocal from "../Components/BotonLocal";
 
-const Vacaciones = () => {
+const Vacaciones = ({ local, titulo, rutaVolver, textoBoton }) => {
   const [mostrarPin, setMostrarPin] = useState(false);
+
+  const config = locales[local];
 
   const {
     trabajadores,
@@ -38,22 +42,36 @@ const Vacaciones = () => {
 
     guardarReporte,
     eliminarReporte,
-  } = useGestionRegistros("vacaciones", "dias");
+  } = useGestionRegistros("vacaciones", "dias", local);
+
+  const registrosDelLocal = vacaciones.filter((registro) =>
+    trabajadores.some((t) => t.nombre === registro.nombre),
+  );
 
   return (
     <div className="min-vh-100 d-flex justify-content-center px-3 py-5">
       <div className="w-100" style={{ maxWidth: "600px" }}>
-        <div className="bg-secondary bg-dark rounded-4 shadow p-4">
-          <Logo onClick={() => setMostrarPin(true)} />
+        <div
+          className="rounded-4 shadow p-4"
+          style={{ backgroundColor: config.color }}
+        >
+          <BotonLocal local={local} />
+          <Logo
+            src={config.logo}
+            ancho={config.anchoLogo}
+            onClick={() => setMostrarPin(true)}
+          />
 
           <main className="text-center">
             <p className="mt-4 text-center">
-              <Link to="/" className="btn btn-outline-light">
-                Ir a Horas Extra
+              <Link to={rutaVolver} className="btn btn-outline-light">
+                {textoBoton}
               </Link>
             </p>
 
-            <div className="fs-5 fw-semibold text-white">VACACIONES</div>
+            <div className="fs-5 fw-semibold text-white">
+              {titulo} {config.nombre}
+            </div>
 
             <div className="mt-3">
               {trabajadores.map((trabajador) => {
@@ -96,7 +114,7 @@ const Vacaciones = () => {
         modo={modo}
         setModo={setModo}
         trabajadores={trabajadores}
-        registros={vacaciones}
+        registros={registrosDelLocal}
         nuevoNombre={nuevoNombre}
         setNuevoNombre={setNuevoNombre}
         nuevoValor={nuevoValor}
@@ -119,6 +137,11 @@ const Vacaciones = () => {
         cerrar={() => setMostrarPin(false)}
         onCorrecto={() => {
           setMostrarPin(false);
+
+          if (trabajadores.length > 0 && !nuevoNombre) {
+            setNuevoNombre(trabajadores[0].nombre);
+          }
+
           setMostrarFormulario(true);
         }}
       />

@@ -11,14 +11,14 @@ import {
 
 import { db } from "../firebase";
 
-export default function useGestionRegistros(coleccionFirestore, campo) {
+export default function useGestionRegistros(coleccionFirestore, campo, local) {
   const [trabajadores, setTrabajadores] = useState([]);
   const [registros, setRegistros] = useState([]);
 
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
   const [nuevoNombre, setNuevoNombre] = useState("");
-  const [nuevoValor, setNuevoValor] = useState(0);
+  const [nuevoValor, setNuevoValor] = useState("");
   const [nuevaFecha, setNuevaFecha] = useState(new Date());
 
   const [editando, setEditando] = useState(false);
@@ -31,15 +31,17 @@ export default function useGestionRegistros(coleccionFirestore, campo) {
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "trabajadores"), (snapshot) => {
       setTrabajadores(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        })),
+        snapshot.docs
+          .map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+          .filter((t) => t.local === local),
       );
     });
 
     return unsub;
-  }, []);
+  }, [local]);
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, coleccionFirestore), (snapshot) => {
@@ -74,7 +76,7 @@ export default function useGestionRegistros(coleccionFirestore, campo) {
     setIdEditar(null);
     setModo("nuevo");
 
-    setNuevoValor(0);
+    setNuevoValor("");
     setNuevaFecha(new Date());
     setNuevoNombre(trabajadores[0]?.nombre || "");
 

@@ -126,7 +126,11 @@ const GestionRegistrosModal = ({
                       value={nuevoValor}
                       min="1"
                       step="1"
-                      onChange={(e) => setNuevoValor(Number(e.target.value))}
+                      onChange={(e) =>
+                        setNuevoValor(
+                          e.target.value === "" ? "" : Number(e.target.value),
+                        )
+                      }
                     />
                   )}
                 </div>

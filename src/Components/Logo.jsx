@@ -1,15 +1,15 @@
-import ChidoLogo from "../assets/CHIDO.png";
-
-const Logo = ({ onClick }) => {
+const Logo = ({ src, ancho = 120, onClick }) => {
   return (
     <header className="text-center mb-4">
       <img
-        src={ChidoLogo} // <- Vite resuelve la ruta automáticamente
-        alt="Chido Logo"
+        src={src}
+        alt="Logo"
         className="img-fluid mb-3"
         onClick={onClick}
         style={{
-          maxWidth: "120px",
+          maxWidth: `${ancho}px`,
+          width: "100%",
+          height: "auto",
           cursor: "pointer",
         }}
       />
