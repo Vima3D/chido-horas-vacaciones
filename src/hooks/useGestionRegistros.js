@@ -18,7 +18,7 @@ export default function useGestionRegistros(coleccionFirestore, campo, local) {
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
   const [nuevoNombre, setNuevoNombre] = useState("");
-  const [nuevoValor, setNuevoValor] = useState("");
+  const [nuevoValor, setNuevoValor] = useState(0);
   const [nuevaFecha, setNuevaFecha] = useState(new Date());
 
   const [editando, setEditando] = useState(false);
@@ -76,7 +76,7 @@ export default function useGestionRegistros(coleccionFirestore, campo, local) {
     setIdEditar(null);
     setModo("nuevo");
 
-    setNuevoValor("");
+    setNuevoValor(0);
     setNuevaFecha(new Date());
     setNuevoNombre(trabajadores[0]?.nombre || "");
 
